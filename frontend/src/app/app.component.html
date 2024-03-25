@@ -1,1 +1,17 @@
-<div class="bg-primary">Hello {{ title }}</div>
+<main class="flex flex-col items-center py-16">
+  <section class="card card-body max-w-[300px] bg-primary text-primary-content mb-8">
+    <input [(ngModel)]="name" class="input input-bordered" type="text" placeholder="Name">
+    <input [(ngModel)]="password" class="input input-bordered" type="text" placeholder="Password">
+    <button (click)="handleSignup()" class="btn btn-success">Signup</button>
+  </section>
+
+  <section *ngIf="success === true" class="alert alert-success flex justify-between max-w-[300px]">
+    Success!!!
+    <button (click)="success = null" class="btn btn-ghost">Close</button>
+  </section>
+  
+  <section *ngIf="success === false" class="alert alert-error flex justify-between max-w-[300px]">
+    Error!!!
+    <button (click)="success = null" class="btn btn-ghost">Close</button>
+  </section>
+</main>

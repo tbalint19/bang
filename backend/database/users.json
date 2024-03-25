@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "id": 0.28344115292303473,
+    "name": "elsouser",
+    "password": "$2b$10$HAsApFhzfzZpZ/wu4BmVLu2UgeajSqY05ZnHNJTiFS1WnwUz9BSQK"
+  },
+  {
+    "id": 0.9262467397390479,
+    "name": "masodikuser",
+    "password": "$2b$10$VFIGE7SkcesmCZPjoR9dYumJwdgCmpuKxSpMsMlqHggHq3Vtsd4BO"
+  }
+]
