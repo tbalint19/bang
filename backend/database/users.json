@@ -8,5 +8,10 @@
     "id": 0.9262467397390479,
     "name": "masodikuser",
     "password": "$2b$10$VFIGE7SkcesmCZPjoR9dYumJwdgCmpuKxSpMsMlqHggHq3Vtsd4BO"
+  },
+  {
+    "id": 0.7800122535507168,
+    "name": "harmadikuser",
+    "password": "$2b$10$B98zZ6zw0akcFV1SOnzaJulnYY4A7X54TrtXaBRV799cBYsL/2JvO"
   }
 ]

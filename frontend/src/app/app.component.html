@@ -1,17 +1,31 @@
-<main class="flex flex-col items-center py-16">
+<main *ngIf="!loginSuccess" class="flex flex-col items-center py-16">
   <section class="card card-body max-w-[300px] bg-primary text-primary-content mb-8">
     <input [(ngModel)]="name" class="input input-bordered" type="text" placeholder="Name">
     <input [(ngModel)]="password" class="input input-bordered" type="text" placeholder="Password">
     <button (click)="handleSignup()" class="btn btn-success">Signup</button>
+    <button (click)="handleLogin()" class="btn btn-success">Login</button>
   </section>
 
-  <section *ngIf="success === true" class="alert alert-success flex justify-between max-w-[300px]">
+  <section *ngIf="signupSuccess === true" class="alert alert-success flex justify-between max-w-[300px]">
     Success!!!
-    <button (click)="success = null" class="btn btn-ghost">Close</button>
+    <button (click)="signupSuccess = null" class="btn btn-ghost">Close</button>
   </section>
   
-  <section *ngIf="success === false" class="alert alert-error flex justify-between max-w-[300px]">
+  <section *ngIf="signupSuccess === false" class="alert alert-error flex justify-between max-w-[300px]">
     Error!!!
-    <button (click)="success = null" class="btn btn-ghost">Close</button>
+    <button (click)="signupSuccess = null" class="btn btn-ghost">Close</button>
   </section>
+
+  <section *ngIf="loginSuccess === false" >
+    Error!!!
+    <button (click)="loginSuccess = null" class="btn btn-ghost">Close</button>
+  </section>
+</main>
+
+<main *ngIf="loginSuccess" class="flex flex-col items-center py-16">
+  <section class="alert alert-success flex justify-between max-w-[300px]">
+    You are logged in
+  </section>
+  <button (click)="handleCreate()" class="btn btn-ghost">Create demo</button>
+  <button (click)="logout()" class="btn btn-ghost">Logout</button>
 </main>
