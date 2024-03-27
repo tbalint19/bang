@@ -17,4 +17,10 @@ export const createGame = () => safeFetch({
   method: "POST",
   path: "/api/game",
   data: {}
-}, z.object({ msg: z.string() }))
+}, z.object({ id: z.number() }))
+
+export const joinGame = (id: number) => safeFetch({
+  method: "POST",
+  path: "/api/join",
+  data: { id }
+}, z.object({ id: z.number() }))

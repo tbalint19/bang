@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { signup, login, createGame } from 'src/api';
+import { signup, login, createGame, joinGame } from 'src/api';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +10,13 @@ export class AppComponent {
   name = ''
   password = ''
 
+  createdGameId: number | null = null
+  inputGameId: string = ""
+
   signupSuccess: boolean | null = null
   loginSuccess: boolean | null = localStorage.getItem('token') ? true : null
+  joinError: boolean = false
+  inGame: boolean = false
 
   async handleSignup() {
     const response = await signup(this.name, this.password)
@@ -30,7 +35,23 @@ export class AppComponent {
 
   async handleCreate() {
     const response = await createGame()
-    console.log(response)
+    if (!response.success) return
+    this.createdGameId = response.data.id
+  }
+
+  copy() {
+    if (this.createdGameId) {
+      navigator.clipboard.writeText(this.createdGameId.toString())
+    }
+  }
+
+  async handleJoin(id: number) {
+    const response = await joinGame(id)
+    if (!response.success) {
+      this.joinError = true
+      return
+    }
+    this.inGame = true
   }
   
   logout () {

@@ -13,5 +13,15 @@
     "id": 0.7800122535507168,
     "name": "harmadikuser",
     "password": "$2b$10$B98zZ6zw0akcFV1SOnzaJulnYY4A7X54TrtXaBRV799cBYsL/2JvO"
+  },
+  {
+    "id": 0.4857575301330519,
+    "name": "john",
+    "password": "$2b$10$w.YWMwT5O6ehuvfgEF9L9OTUnRahVivdKO.YGLhWuZhCxvA2U0EwO"
+  },
+  {
+    "id": 0.9774686808703119,
+    "name": "jack",
+    "password": "$2b$10$PK6k.y3hkeIGI/nL/I06U.ZcPYaMcq9bNwcocF1trAMwxBo.lwO4y"
   }
 ]
