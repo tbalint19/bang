@@ -7,6 +7,7 @@ import { signup, login, createGame, joinGame } from 'src/api';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  loggedInUserName: string | null = null
   name = ''
   password = ''
 
@@ -16,7 +17,7 @@ export class AppComponent {
   signupSuccess: boolean | null = null
   loginSuccess: boolean | null = localStorage.getItem('token') ? true : null
   joinError: boolean = false
-  inGame: boolean = false
+  inGame: number | null = null
 
   async handleSignup() {
     const response = await signup(this.name, this.password)
@@ -27,6 +28,7 @@ export class AppComponent {
     const response = await login(this.name, this.password)
     this.loginSuccess = response.success
     if (response.success) {
+      this.loggedInUserName = this.name
       this.name = ''
       this.password = ''
       localStorage.setItem('token', response.data.token)
@@ -51,7 +53,7 @@ export class AppComponent {
       this.joinError = true
       return
     }
-    this.inGame = true
+    this.inGame = id
   }
   
   logout () {

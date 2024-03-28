@@ -23,5 +23,15 @@
     "id": 0.9774686808703119,
     "name": "jack",
     "password": "$2b$10$PK6k.y3hkeIGI/nL/I06U.ZcPYaMcq9bNwcocF1trAMwxBo.lwO4y"
+  },
+  {
+    "id": 0.5779706006369763,
+    "name": "jim",
+    "password": "$2b$10$4laVxzID6ac7lAf9YeX5WukOPH2QTwW1e1B3JvQxP1rvUrPQUu3zG"
+  },
+  {
+    "id": 0.2588877202542641,
+    "name": "jane",
+    "password": "$2b$10$K6nnjcVAiGzIZCazVlhMouuuiZi90dBow2TGBxPB4lLhb2w5cMzVG"
   }
 ]

@@ -1,3 +1,28 @@
-<div class="flex justify-center">
+<div *ngIf="!game" class="flex justify-center">
   <div class="loading loading-spinner loading-lg"></div>
+</div>
+
+<div class="flex flex-col items-center py-16" *ngIf="game && !game.hasStarted">
+  <div class="card bg-secondary text-secondary-content w-[300px]">
+    <div *ngIf="game.joinedUsers.length > 8 || game.joinedUsers.length < 4 || loggedInUserName !== game.admin" class="flex justify-center my-8">
+      <div class="loading loading-spinner loading-lg"></div>
+    </div>
+    <div *ngIf="game.joinedUsers.length <= 8 && game.joinedUsers.length >= 4 && loggedInUserName === game.admin" class="flex justify-center my-8">
+      <button class="btn btn-primary">Start game</button>
+    </div>
+    <div class="divider">Joined players</div>
+    <div class="p-2 my-2 mx-3 rounded-sm bg-primary text-primary-content font-bold flex justify-between items-center" *ngFor="let user of game.joinedUsers">
+      <span>{{ user.name }}</span>
+      <button *ngIf="loggedInUserName === game.admin && loggedInUserName !== user.name" (click)="deletePlayer(user.name)" class="btn btn-sm">Kick</button>
+      <button *ngIf="loggedInUserName === user.name" (click)="deletePlayer(user.name)" class="btn btn-sm">Leave</button>
+    </div>
+    <div class="divider">Waiting in lobby...</div>
+    <div class="p-2 my-2 mx-3 rounded-sm bg-primary text-primary-content font-bold flex justify-between items-center" *ngFor="let user of game.requests">
+      <span>{{ user.name }}</span>
+      <button *ngIf="loggedInUserName === game.admin" (click)="addPlayer(user.id)" class="btn btn-sm">Add</button>
+    </div>
+    <div class="p-2">
+      <button (click)="emitBack()" class="btn w-full btn-error">Back to menu</button>
+    </div>
+  </div>
 </div>

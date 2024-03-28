@@ -17,7 +17,7 @@ type Params = {
   data?: any;
 };
 
-const baseUrl = 'http://localhost:3000';
+const baseUrl = 'http://192.168.0.78:3000';
 
 export const safeFetch = async <Schema extends z.ZodTypeAny>(
   params: Params,
