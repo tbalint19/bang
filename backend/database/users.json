@@ -18,5 +18,10 @@
     "id": 0.2995506591542769,
     "name": "svelteuser",
     "password": "$2b$10$F35mbKjDRSO4ER1j8Bx5E.uzMCHUlT1eJVXUnOT3hHYVVAjmuxXgy"
+  },
+  {
+    "id": 0.6905100975918546,
+    "name": "vueuser",
+    "password": "$2b$10$I29xWgemRrJEp3ppyPufauQMdh0KdYwaKfruUkF1VNzjDFDjZi9bu"
   }
 ]
