@@ -1,37 +1,12 @@
 [
   {
-    "id": 0.28344115292303473,
-    "name": "elsouser",
-    "password": "$2b$10$HAsApFhzfzZpZ/wu4BmVLu2UgeajSqY05ZnHNJTiFS1WnwUz9BSQK"
+    "id": 0.034695101193321864,
+    "name": "user1",
+    "password": "$2b$10$uE2NLusIueI7Q8ftlnsPcOYWIVar0y3eGsSTf8OkEbu7vY6uSL2P."
   },
   {
-    "id": 0.9262467397390479,
-    "name": "masodikuser",
-    "password": "$2b$10$VFIGE7SkcesmCZPjoR9dYumJwdgCmpuKxSpMsMlqHggHq3Vtsd4BO"
-  },
-  {
-    "id": 0.7800122535507168,
-    "name": "harmadikuser",
-    "password": "$2b$10$B98zZ6zw0akcFV1SOnzaJulnYY4A7X54TrtXaBRV799cBYsL/2JvO"
-  },
-  {
-    "id": 0.4857575301330519,
-    "name": "john",
-    "password": "$2b$10$w.YWMwT5O6ehuvfgEF9L9OTUnRahVivdKO.YGLhWuZhCxvA2U0EwO"
-  },
-  {
-    "id": 0.9774686808703119,
-    "name": "jack",
-    "password": "$2b$10$PK6k.y3hkeIGI/nL/I06U.ZcPYaMcq9bNwcocF1trAMwxBo.lwO4y"
-  },
-  {
-    "id": 0.5779706006369763,
-    "name": "jim",
-    "password": "$2b$10$4laVxzID6ac7lAf9YeX5WukOPH2QTwW1e1B3JvQxP1rvUrPQUu3zG"
-  },
-  {
-    "id": 0.2588877202542641,
-    "name": "jane",
-    "password": "$2b$10$K6nnjcVAiGzIZCazVlhMouuuiZi90dBow2TGBxPB4lLhb2w5cMzVG"
+    "id": 0.6636640192753314,
+    "name": "user2",
+    "password": "$2b$10$iWMntmo.Vpg0RX8Dxmzzm.71.7pKsNo1B1tkjVDMC.Mg4yOtVE8wO"
   }
 ]

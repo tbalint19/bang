@@ -11,13 +11,13 @@
       <button class="btn btn-primary">Start game</button>
     </div>
     <div class="divider">Joined players</div>
-    <div class="p-2 my-2 mx-3 rounded-sm bg-primary text-primary-content font-bold flex justify-between items-center" *ngFor="let user of game.joinedUsers">
+    <div class="p-2 my-2 mx-3 rounded-sm bg-primary text-primary-content font-bold flex justify-between items-center" *ngFor="let user of game.joinedUsers; trackBy: identifyUser">
       <span>{{ user.name }}</span>
       <button *ngIf="loggedInUserName === game.admin && loggedInUserName !== user.name" (click)="deletePlayer(user.name)" class="btn btn-sm">Kick</button>
       <button *ngIf="loggedInUserName === user.name" (click)="deletePlayer(user.name)" class="btn btn-sm">Leave</button>
     </div>
     <div class="divider">Waiting in lobby...</div>
-    <div class="p-2 my-2 mx-3 rounded-sm bg-primary text-primary-content font-bold flex justify-between items-center" *ngFor="let user of game.requests">
+    <div class="p-2 my-2 mx-3 rounded-sm bg-primary text-primary-content font-bold flex justify-between items-center" *ngFor="let user of game.requests; trackBy: identifyUser">
       <span>{{ user.name }}</span>
       <button *ngIf="loggedInUserName === game.admin" (click)="addPlayer(user.id)" class="btn btn-sm">Add</button>
     </div>

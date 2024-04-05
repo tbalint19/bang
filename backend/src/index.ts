@@ -48,7 +48,6 @@ const LoginRequestSchema = z.object({
   password: z.string().min(3),
 })
 
-// name -> id
 server.post("/api/login", async (req, res) => {
   const result = LoginRequestSchema.safeParse(req.body)
   if (!result.success)

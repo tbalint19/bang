@@ -1,13 +1,35 @@
 [
   {
-    "id": 0.09884004308563354,
-    "admin": "john",
+    "id": 0.8573879709115606,
+    "admin": "user1",
+    "hasStarted": false,
+    "requests": [
+      {
+        "id": 0.6636640192753314,
+        "name": "user2"
+      }
+    ],
+    "joinedUsers": [
+      {
+        "id": 0.034695101193321864,
+        "name": "user1"
+      }
+    ],
+    "players": [],
+    "unusedCards": [],
+    "communityCards": [],
+    "usedCards": [],
+    "logs": []
+  },
+  {
+    "id": 0.4088416420121179,
+    "admin": "user1",
     "hasStarted": false,
     "requests": [],
     "joinedUsers": [
       {
-        "id": 0.4857575301330519,
-        "name": "john"
+        "id": 0.034695101193321864,
+        "name": "user1"
       }
     ],
     "players": [],

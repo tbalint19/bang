@@ -1,10 +1,11 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { authorize, getGame, deleteUserFromGame } from 'src/api';
-import { GameSchema } from 'src/model';
+import { GameSchema, UserSchema } from 'src/model';
 import { z } from 'zod';
 import { EventEmitter } from '@angular/core';
 
 type Game = z.infer<typeof GameSchema>
+type User = z.infer<typeof UserSchema>
 
 @Component({
   selector: 'app-game',
@@ -20,10 +21,7 @@ export class GameComponent implements OnInit {
   game: Game | null = null
 
   constructor() { }
-
-  // polling - /\..../\..../\..../\....
-  // longpolling - /....\/.\/....\/....\/..\/
-  // websocket - /     \      \  \ /    \
+  
   ngOnInit(): void {
     setInterval(async () => {
       const response = await getGame(this.gameId)
@@ -38,6 +36,10 @@ export class GameComponent implements OnInit {
 
   async deletePlayer(username: string) {
     deleteUserFromGame(this.gameId, username)
+  }
+
+  identifyUser(index: number, item: Omit<User, 'password'>){
+    return item.id;
   }
 
   emitBack() {

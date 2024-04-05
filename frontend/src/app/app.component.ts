@@ -57,6 +57,8 @@ export class AppComponent {
   }
   
   logout () {
+    this.createdGameId = null
+    this.inputGameId = ""
     localStorage.removeItem('token')
     this.loginSuccess = null
   }
