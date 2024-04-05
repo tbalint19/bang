@@ -37,5 +37,51 @@
     "communityCards": [],
     "usedCards": [],
     "logs": []
+  },
+  {
+    "id": 0.12273233096994107,
+    "admin": "reactuser",
+    "hasStarted": false,
+    "requests": [],
+    "joinedUsers": [
+      {
+        "id": 0.11749657138721425,
+        "name": "reactuser"
+      }
+    ],
+    "players": [],
+    "unusedCards": [],
+    "communityCards": [],
+    "usedCards": [],
+    "logs": []
+  },
+  {
+    "id": 0.0715525239618775,
+    "admin": "reactuser",
+    "hasStarted": false,
+    "requests": [],
+    "joinedUsers": [],
+    "players": [],
+    "unusedCards": [],
+    "communityCards": [],
+    "usedCards": [],
+    "logs": []
+  },
+  {
+    "id": 0.31528024261220944,
+    "admin": "user1",
+    "hasStarted": false,
+    "requests": [],
+    "joinedUsers": [
+      {
+        "id": 0.034695101193321864,
+        "name": "user1"
+      }
+    ],
+    "players": [],
+    "unusedCards": [],
+    "communityCards": [],
+    "usedCards": [],
+    "logs": []
   }
 ]

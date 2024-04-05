@@ -8,5 +8,10 @@
     "id": 0.6636640192753314,
     "name": "user2",
     "password": "$2b$10$iWMntmo.Vpg0RX8Dxmzzm.71.7pKsNo1B1tkjVDMC.Mg4yOtVE8wO"
+  },
+  {
+    "id": 0.11749657138721425,
+    "name": "reactuser",
+    "password": "$2b$10$vMGaBVaPBmRTw0AbT4S5t.tWbt66WHCIX/hXnAZRJCbgtEz/Q.FKK"
   }
 ]
