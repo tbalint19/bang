@@ -83,5 +83,26 @@
     "communityCards": [],
     "usedCards": [],
     "logs": []
+  },
+  {
+    "id": 0.4812237504667851,
+    "admin": "svelteuser",
+    "hasStarted": false,
+    "requests": [],
+    "joinedUsers": [
+      {
+        "id": 0.2995506591542769,
+        "name": "svelteuser"
+      },
+      {
+        "id": 0.034695101193321864,
+        "name": "user1"
+      }
+    ],
+    "players": [],
+    "unusedCards": [],
+    "communityCards": [],
+    "usedCards": [],
+    "logs": []
   }
 ]

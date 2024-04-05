@@ -13,5 +13,10 @@
     "id": 0.11749657138721425,
     "name": "reactuser",
     "password": "$2b$10$vMGaBVaPBmRTw0AbT4S5t.tWbt66WHCIX/hXnAZRJCbgtEz/Q.FKK"
+  },
+  {
+    "id": 0.2995506591542769,
+    "name": "svelteuser",
+    "password": "$2b$10$F35mbKjDRSO4ER1j8Bx5E.uzMCHUlT1eJVXUnOT3hHYVVAjmuxXgy"
   }
 ]
