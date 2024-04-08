@@ -26,3 +26,17 @@
     </div>
   </div>
 </div>
+
+<div *ngIf="game && game.hasStarted" class="flex gap-4 flex-wrap">
+  <div *ngFor="let player of game.players" class="card card-body bg-neutral text-neutral-content">
+    <p>{{ player.character.name }}</p>
+    <p *ngIf="'Sheriff' === player.role.name || player.name === loggedInUserName">{{ player.role.name }}</p>
+    <p *ngIf="'Sheriff' !== player.role.name && player.name !== loggedInUserName">*****</p>
+    <p>{{ player.life }}</p>
+    <div class="divider">Cards</div>
+    <p *ngFor="let card of player.cardsInHand">
+      <span *ngIf="player.name === loggedInUserName">{{ card.title }}</span>
+      <span *ngIf="player.name !== loggedInUserName">*****</span>
+    </p>
+  </div>
+</div>
