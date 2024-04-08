@@ -1,27 +1,22 @@
 [
   {
-    "id": 0.034695101193321864,
-    "name": "user1",
-    "password": "$2b$10$uE2NLusIueI7Q8ftlnsPcOYWIVar0y3eGsSTf8OkEbu7vY6uSL2P."
+    "id": 0.11073172581177171,
+    "name": "angularuser",
+    "password": "$2b$10$BdS4rPwa3JWZghl1fYccMuRTowC0OPk4uN7tqPNmMdzs0y7WN7PYW"
   },
   {
-    "id": 0.6636640192753314,
-    "name": "user2",
-    "password": "$2b$10$iWMntmo.Vpg0RX8Dxmzzm.71.7pKsNo1B1tkjVDMC.Mg4yOtVE8wO"
-  },
-  {
-    "id": 0.11749657138721425,
+    "id": 0.7826685971604881,
     "name": "reactuser",
-    "password": "$2b$10$vMGaBVaPBmRTw0AbT4S5t.tWbt66WHCIX/hXnAZRJCbgtEz/Q.FKK"
+    "password": "$2b$10$mITfzfmriDToZSxewwfJ..IXzbfAAS7KH1aqBxlpRMUAjVIVuKXwe"
   },
   {
-    "id": 0.2995506591542769,
+    "id": 0.1234053129210626,
     "name": "svelteuser",
-    "password": "$2b$10$F35mbKjDRSO4ER1j8Bx5E.uzMCHUlT1eJVXUnOT3hHYVVAjmuxXgy"
+    "password": "$2b$10$YlqMcvOYdWZfceyVtO.Xx.NP0d6j6EamjG06JmjHCdqkf3v0G06oG"
   },
   {
-    "id": 0.6905100975918546,
+    "id": 0.2923749224628076,
     "name": "vueuser",
-    "password": "$2b$10$I29xWgemRrJEp3ppyPufauQMdh0KdYwaKfruUkF1VNzjDFDjZi9bu"
+    "password": "$2b$10$IoPBAmKIEv5Xy0jeL0tm4eIR/PQTBCWsGT4g/umAYptYECg/W1o4i"
   }
 ]

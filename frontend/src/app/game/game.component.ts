@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
-import { authorize, getGame, deleteUserFromGame } from 'src/api';
+import { authorize, getGame, deleteUserFromGame, startGame } from 'src/api';
 import { GameSchema, UserSchema } from 'src/model';
 import { z } from 'zod';
 import { EventEmitter } from '@angular/core';
@@ -36,6 +36,10 @@ export class GameComponent implements OnInit {
 
   async deletePlayer(username: string) {
     deleteUserFromGame(this.gameId, username)
+  }
+  
+  async initGame() {
+    startGame(this.gameId)
   }
 
   identifyUser(index: number, item: Omit<User, 'password'>){

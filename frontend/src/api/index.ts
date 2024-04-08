@@ -1,4 +1,4 @@
-import { z } from "zod"
+import { number, z } from "zod"
 import { safeFetch } from "src/lib/http/safeFetch"
 import { GameSchema } from "src/model"
 
@@ -40,4 +40,10 @@ export const authorize = (gameId: number, userId: number) => safeFetch({
 export const deleteUserFromGame = (gameId: number, username: string) => safeFetch({
   method: "DELETE",
   path: "/api/game/" + gameId + "/" + username,
+}, z.object({ success: z.boolean() }))
+
+export const startGame = (id: number) => safeFetch({
+  method: "POST",
+  path: "/api/start/" + id,
+  data: {}
 }, z.object({ success: z.boolean() }))

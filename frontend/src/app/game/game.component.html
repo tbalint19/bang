@@ -4,11 +4,11 @@
 
 <div class="flex flex-col items-center py-16" *ngIf="game && !game.hasStarted">
   <div class="card bg-secondary text-secondary-content w-[300px]">
-    <div *ngIf="game.joinedUsers.length > 8 || game.joinedUsers.length < 4 || loggedInUserName !== game.admin" class="flex justify-center my-8">
+    <div *ngIf="game.joinedUsers.length > 7 || game.joinedUsers.length < 4 || loggedInUserName !== game.admin" class="flex justify-center my-8">
       <div class="loading loading-spinner loading-lg"></div>
     </div>
-    <div *ngIf="game.joinedUsers.length <= 8 && game.joinedUsers.length >= 4 && loggedInUserName === game.admin" class="flex justify-center my-8">
-      <button class="btn btn-primary">Start game</button>
+    <div *ngIf="game.joinedUsers.length <= 7 && game.joinedUsers.length >= 4 && loggedInUserName === game.admin" class="flex justify-center my-8">
+      <button (click)="initGame()" class="btn btn-primary">Start game</button>
     </div>
     <div class="divider">Joined players</div>
     <div class="p-2 my-2 mx-3 rounded-sm bg-primary text-primary-content font-bold flex justify-between items-center" *ngFor="let user of game.joinedUsers; trackBy: identifyUser">

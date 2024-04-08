@@ -29,6 +29,7 @@ export const save = async <Schema extends z.ZodTypeAny>(
     await filesystem.writeFile(path, content)
     return { success: true }
   } catch (error) {
+    console.log(error)
     return  { success: false }
   }
 }
