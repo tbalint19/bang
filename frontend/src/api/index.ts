@@ -47,3 +47,8 @@ export const startGame = (id: number) => safeFetch({
   path: "/api/start/" + id,
   data: {}
 }, z.object({ success: z.boolean() }))
+
+export const init = () => safeFetch({
+  method: "GET",
+  path: "/api/init",
+}, z.object({ name: z.string(), gameIds: z.number().array() }))

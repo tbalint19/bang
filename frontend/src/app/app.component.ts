@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
-import { signup, login, createGame, joinGame } from 'src/api';
+import { Component, OnInit } from '@angular/core';
+import { signup, login, createGame, joinGame, init } from 'src/api';
+import { formatId } from 'src/util/formatId';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   loggedInUserName: string | null = null
   name = ''
   password = ''
@@ -18,6 +19,28 @@ export class AppComponent {
   loginSuccess: boolean | null = localStorage.getItem('token') ? true : null
   joinError: boolean = false
   inGame: number | null = null
+
+  isInitializing = false
+  gameIds: number[] = []
+
+  ngOnInit(): void {
+    this.handleInit()
+  }
+
+  async handleInit() {
+    if (this.loginSuccess) {
+      this.isInitializing = true
+      const response = await init()
+      this.isInitializing = false
+      if (!response.success) return
+      this.loggedInUserName = response.data.name
+      this.gameIds = response.data.gameIds
+    }
+  }
+
+  formatId(id: number) {
+    return formatId(id)
+  }
 
   async handleSignup() {
     const response = await signup(this.name, this.password)
@@ -32,6 +55,8 @@ export class AppComponent {
       this.name = ''
       this.password = ''
       localStorage.setItem('token', response.data.token)
+      this.handleInit()
+      
     }
   }
 

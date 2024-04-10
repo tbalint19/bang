@@ -1,7 +1,8 @@
 <script setup lang="ts">
-  import { ref } from 'vue';
-  import { signup, login, createGame, joinGame } from './api';
+  import { ref, onMounted } from 'vue';
+  import { signup, login, createGame, joinGame, init } from './api';
   import Game from './components/Game.vue';
+  import { formatId } from './util/formatId';
 
   const loggedInUserName = ref<string | null>(null)
   const name = ref("")
@@ -14,6 +15,22 @@
   const loginSuccess = ref<boolean | null>(localStorage.getItem('token') ? true : null)
   const joinError = ref(false)
   const inGame = ref<number | null>(null)
+
+  const isInitializing = ref(false)
+  const gameIds = ref<number[]>([])
+
+  const handleInitialize = async () => {
+      if (loginSuccess) {
+        isInitializing.value = true
+        const response = await init()
+        isInitializing.value = false
+        if (!response.success) return
+        loggedInUserName.value = response.data.name
+        gameIds.value = response.data.gameIds
+      }
+    }
+
+  onMounted(handleInitialize)
 
   const handleSignup = async() => {
     const response = await signup(name.value, password.value)
@@ -28,6 +45,7 @@
       name.value = ''
       password.value = ''
       localStorage.setItem('token', response.data.token)
+      handleInitialize()
     }
   }
 
@@ -62,6 +80,11 @@
 </script>
 
 <template>
+<div v-if="isInitializing" class="flex justify-center">
+  <div class="loading loading-spinner loading-lg"></div>
+</div>
+
+<div v-if="!isInitializing">
 <div v-if="!inGame">
   <main v-if="!loginSuccess" class="flex flex-col items-center py-16">
     <section class="card card-body w-[300px] bg-primary text-primary-content mb-8">
@@ -110,6 +133,16 @@
         <div class="divider">Join game</div>
         <input v-model="inputGameId" class="input input-bordered" placeholder="Game ID" type="text">
         <button @click="handleJoin(+inputGameId)" class="btn btn-neutral">Join</button>
+        <div class="divider">
+            <span>
+              My games (<span class="font-bold">{{loggedInUserName}}</span>)
+            </span>
+          </div>
+          <div v-for="id of gameIds" class="flex justify-between items-center">
+            <button class="btn btn-accent grow" @click="handleJoin(id)">
+              Join game{{ formatId(id) }}
+            </button>
+          </div>
         <div class="divider">Account</div>
         <button @click="logout" class="btn btn-primary">Logout</button>
       </div>
@@ -124,5 +157,6 @@
 <main v-if="inGame && loggedInUserName" class="flex flex-col items-center py-16">
   <Game @back="inGame = null" :gameId="inGame" :loggedInUserName="loggedInUserName" />
 </main>
+</div>
 </template>
 

@@ -3,6 +3,7 @@
   import { authorize, getGame, deleteUserFromGame } from '../api';
   import { GameSchema } from '../model';
   import { z } from 'zod';
+  import { formatId } from '../util/formatId';
 
   type Game = z.infer<typeof GameSchema>
 
@@ -40,6 +41,7 @@
 {#if (game && !game.hasStarted)}
 <div class="flex flex-col items-center py-16">
   <div class="card bg-secondary text-secondary-content w-[300px]">
+    <div class="pb-2 pt-1 opacity-25 font-extrabold text-3xl text-center">{formatId(game.id)}</div>
     {#if (game.joinedUsers.length > 8 || game.joinedUsers.length < 4 || loggedInUserName !== game.admin)}
     <div class="flex justify-center my-8">
       <div class="loading loading-spinner loading-lg"></div>

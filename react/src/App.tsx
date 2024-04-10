@@ -1,6 +1,7 @@
-import { useState } from 'react'
-import { signup, login, createGame, joinGame } from './api';
+import { useEffect, useState } from 'react'
+import { signup, login, createGame, joinGame, init } from './api';
 import Game from './components/Game';
+import { formatId } from './util/formatId';
 
 const App = () => {
 
@@ -17,6 +18,23 @@ const App = () => {
 
   const [inGame, setInGame] = useState<number | null>(null)
 
+  const [ isInitializing, setIsInitializing ] = useState(false)
+  const [ gameIds, setGameIds ] = useState<number[]>([])
+
+  const handleInitialize = async () => {
+    setIsInitializing(true)
+    const response = await init()
+    setIsInitializing(false)
+    if (!response.success) return
+    setLoggedInUserName(response.data.name)
+    setGameIds(response.data.gameIds)
+  }
+
+  useEffect(() => {
+    if (loginSuccess)
+      handleInitialize()
+  }, [ ])
+
   const handleSignup = async() => {
     const response = await signup(name, password)
     setSignupSuccess(response.success)
@@ -30,6 +48,7 @@ const App = () => {
       setName("")
       setPassword("")
       localStorage.setItem('token', response.data.token)
+      handleInitialize()
     }
   }
 
@@ -63,7 +82,13 @@ const App = () => {
 
   return  (
     <>
-      {!inGame && (
+      {isInitializing && (
+        <div className="flex justify-center">
+          <div className="loading loading-spinner loading-lg"></div>
+        </div>
+      )}
+
+      {(!isInitializing && !inGame) && (
         <div>
           {!loginSuccess && (
             <main className="flex flex-col items-center py-16">
@@ -126,6 +151,18 @@ const App = () => {
                   <div className="divider">Join game</div>
                   <input value={inputGameId} onChange={e => setInputGameId(e.target.value)} className="input input-bordered" placeholder="Game ID" type="text" />
                   <button onClick={() => handleJoin(+inputGameId)} className="btn btn-neutral">Join</button>
+                  <div className="divider">
+                    <span>
+                      My games (<span className="font-bold">{loggedInUserName}</span>)
+                    </span>
+                  </div>
+                  {gameIds.map(id => (
+                    <div className="flex justify-between items-center">
+                      <button className="btn btn-accent grow" onClick={() => handleJoin(id)}>
+                        Join game{formatId(id)}
+                      </button>
+                    </div>
+                  ))}
                   <div className="divider">Account</div>
                   <button onClick={logout} className="btn btn-primary">Logout</button>
                 </div>
@@ -141,7 +178,7 @@ const App = () => {
         </div>
       )}
 
-      {(inGame && loggedInUserName) && (
+      {(!isInitializing && inGame && loggedInUserName) && (
         <main className="flex flex-col items-center py-16">
           <Game gameId={inGame} loggedInUserName={loggedInUserName} back={() => setInGame(null)}  />
         </main>

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { authorize, getGame, deleteUserFromGame } from '../api';
 import { GameSchema } from '../model';
 import { z } from 'zod';
+import { formatId } from '../util/formatId';
 
 type Game = z.infer<typeof GameSchema>
 
@@ -42,6 +43,7 @@ const Game = ({ gameId, loggedInUserName, back }: Props) => {
       {(game && !game.hasStarted) && (
         <div className="flex flex-col items-center py-16">
           <div className="card bg-secondary text-secondary-content w-[300px]">
+            <div className="pb-2 pt-1 opacity-25 font-extrabold text-3xl text-center">{formatId(game.id)}</div>
             {(game.joinedUsers.length > 8 || game.joinedUsers.length < 4 || loggedInUserName !== game.admin) && (
               <div className="flex justify-center my-8">
                 <div className="loading loading-spinner loading-lg"></div>

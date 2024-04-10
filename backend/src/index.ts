@@ -67,7 +67,7 @@ server.post("/api/login", async (req, res) => {
   if (!isCorrect)
     return res.sendStatus(401)
 
-  const token = jwt.sign({ name: user.name }, serverPassword, { expiresIn: "1h" })
+  const token = jwt.sign({ name: user.name }, serverPassword)
 
   return res.json({ token })
 })
@@ -339,6 +339,27 @@ server.post("/api/start/:gameId", async (req, res) => {
     return res.sendStatus(500)
 
   res.json(saveResult)
+})
+
+server.get("/api/init", async (req, res) => {
+  const user = res.locals.user as Omit<User, 'password'>
+  if (!user)  
+    return res.sendStatus(401)
+
+  const games = await load("games", GameSchema.array())
+  if (!games)    
+    return res.sendStatus(500)
+
+  const gamesOfUser = games.filter(game => (
+    game.requests.some(player => player.name === user.name) ||
+    game.joinedUsers.some(player => player.name === user.name) ||
+    game.players.some(player => player.name === user.name)
+  )).map(game => game.id)
+
+  res.json({
+    name: user.name,
+    gameIds: gamesOfUser
+  })
 })
 
 // +1 / -1 -> 200/400/500

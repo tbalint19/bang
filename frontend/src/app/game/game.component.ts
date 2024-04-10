@@ -1,8 +1,9 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { authorize, getGame, deleteUserFromGame, startGame } from 'src/api';
 import { GameSchema, UserSchema } from 'src/model';
-import { z } from 'zod';
+import { number, z } from 'zod';
 import { EventEmitter } from '@angular/core';
+import { formatId } from 'src/util/formatId';
 
 type Game = z.infer<typeof GameSchema>
 type User = z.infer<typeof UserSchema>
@@ -28,6 +29,10 @@ export class GameComponent implements OnInit {
       if (!response.success) return
       this.game = response.data
     }, 500)
+  }
+
+  formatId(id: number) {
+    return formatId(id)
   }
 
   async addPlayer(playerId: number): Promise<void> {

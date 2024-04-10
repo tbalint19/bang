@@ -41,3 +41,14 @@ export const deleteUserFromGame = (gameId: number, username: string) => safeFetc
   method: "DELETE",
   path: "/api/game/" + gameId + "/" + username,
 }, z.object({ success: z.boolean() }))
+
+export const startGame = (id: number) => safeFetch({
+  method: "POST",
+  path: "/api/start/" + id,
+  data: {}
+}, z.object({ success: z.boolean() }))
+
+export const init = () => safeFetch({
+  method: "GET",
+  path: "/api/init",
+}, z.object({ name: z.string(), gameIds: z.number().array() }))

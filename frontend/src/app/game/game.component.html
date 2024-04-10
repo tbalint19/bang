@@ -4,6 +4,7 @@
 
 <div class="flex flex-col items-center py-16" *ngIf="game && !game.hasStarted">
   <div class="card bg-secondary text-secondary-content w-[300px]">
+    <div class="pb-2 pt-1 opacity-25 font-extrabold text-3xl text-center">{{ formatId(game.id) }}</div>
     <div *ngIf="game.joinedUsers.length > 7 || game.joinedUsers.length < 4 || loggedInUserName !== game.admin" class="flex justify-center my-8">
       <div class="loading loading-spinner loading-lg"></div>
     </div>

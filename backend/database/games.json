@@ -3,7 +3,20 @@
     "id": 0.04325549274446838,
     "admin": "angularuser",
     "hasStarted": true,
-    "requests": [],
+    "requests": [
+      {
+        "id": 0.7826685971604881,
+        "name": "reactuser"
+      },
+      {
+        "id": 0.1234053129210626,
+        "name": "svelteuser"
+      },
+      {
+        "id": 0.2923749224628076,
+        "name": "vueuser"
+      }
+    ],
     "joinedUsers": [
       {
         "id": 0.11073172581177171,
@@ -814,6 +827,103 @@
         }
       }
     ],
+    "communityCards": [],
+    "usedCards": [],
+    "logs": []
+  },
+  {
+    "id": 0.4860998614114902,
+    "admin": "angularuser",
+    "hasStarted": false,
+    "requests": [],
+    "joinedUsers": [
+      {
+        "id": 0.11073172581177171,
+        "name": "angularuser"
+      }
+    ],
+    "players": [],
+    "unusedCards": [],
+    "communityCards": [],
+    "usedCards": [],
+    "logs": []
+  },
+  {
+    "id": 0.34648163802649634,
+    "admin": "angularuser",
+    "hasStarted": false,
+    "requests": [],
+    "joinedUsers": [
+      {
+        "id": 0.11073172581177171,
+        "name": "angularuser"
+      }
+    ],
+    "players": [],
+    "unusedCards": [],
+    "communityCards": [],
+    "usedCards": [],
+    "logs": []
+  },
+  {
+    "id": 0.45181228582661315,
+    "admin": "angularuser",
+    "hasStarted": false,
+    "requests": [],
+    "joinedUsers": [],
+    "players": [],
+    "unusedCards": [],
+    "communityCards": [],
+    "usedCards": [],
+    "logs": []
+  },
+  {
+    "id": 0.05588342524486967,
+    "admin": "reactuser",
+    "hasStarted": false,
+    "requests": [],
+    "joinedUsers": [
+      {
+        "id": 0.7826685971604881,
+        "name": "reactuser"
+      }
+    ],
+    "players": [],
+    "unusedCards": [],
+    "communityCards": [],
+    "usedCards": [],
+    "logs": []
+  },
+  {
+    "id": 0.7401262688242709,
+    "admin": "svelteuser",
+    "hasStarted": false,
+    "requests": [],
+    "joinedUsers": [
+      {
+        "id": 0.1234053129210626,
+        "name": "svelteuser"
+      }
+    ],
+    "players": [],
+    "unusedCards": [],
+    "communityCards": [],
+    "usedCards": [],
+    "logs": []
+  },
+  {
+    "id": 0.016011681028464952,
+    "admin": "vueuser",
+    "hasStarted": false,
+    "requests": [],
+    "joinedUsers": [
+      {
+        "id": 0.2923749224628076,
+        "name": "vueuser"
+      }
+    ],
+    "players": [],
+    "unusedCards": [],
     "communityCards": [],
     "usedCards": [],
     "logs": []

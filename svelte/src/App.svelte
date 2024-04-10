@@ -1,6 +1,8 @@
 <script lang="ts">
-  import { signup, login, createGame, joinGame } from './api';
+  import { onMount } from 'svelte';
+  import { signup, login, createGame, joinGame, init } from './api';
   import Game from './components/Game.svelte';
+  import { formatId } from './util/formatId';
 
   let loggedInUserName: string | null = null
   let name = ''
@@ -13,6 +15,22 @@
   let loginSuccess: boolean | null = localStorage.getItem('token') ? true : null
   let joinError: boolean = false
   let inGame: number | null = null
+
+  let isInitializing = false
+  let gameIds: number[] = []
+
+  const handleInitialize = async () => {
+      if (loginSuccess) {
+        isInitializing = true
+        const response = await init()
+        isInitializing = false
+        if (!response.success) return
+        loggedInUserName = response.data.name
+        gameIds = response.data.gameIds
+      }
+    }
+
+  onMount(handleInitialize)
 
   const handleSignup = async() => {
     const response = await signup(name, password)
@@ -27,6 +45,7 @@
       name = ''
       password = ''
       localStorage.setItem('token', response.data.token)
+      handleInitialize()
     }
   }
 
@@ -61,6 +80,13 @@
 
 </script>
 
+{#if isInitializing}
+<div class="flex justify-center">
+  <div class="loading loading-spinner loading-lg"></div>
+</div>
+{/if}
+
+{#if !isInitializing}
 {#if !inGame}
 <div>
   {#if !loginSuccess}
@@ -123,6 +149,18 @@
         <div class="divider">Join game</div>
         <input bind:value={inputGameId} class="input input-bordered" placeholder="Game ID" type="text">
         <button on:click={() => handleJoin(+inputGameId)} class="btn btn-neutral">Join</button>
+        <div class="divider">
+          <span>
+            My games (<span class="font-bold">{loggedInUserName}</span>)
+          </span>
+        </div>
+        {#each gameIds as id}
+        <div class="flex justify-between items-center">
+          <button class="btn btn-accent grow" on:click={() => handleJoin(id)}>
+            Join game{formatId(id)}
+          </button>
+        </div>
+        {/each}
         <div class="divider">Account</div>
         <button on:click={logout} class="btn btn-primary">Logout</button>
       </div>
@@ -142,4 +180,5 @@
 <main class="flex flex-col items-center py-16">
   <Game gameId={inGame} {loggedInUserName} on:back={() => inGame = null} />
 </main>
+{/if}
 {/if}
