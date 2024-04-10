@@ -16,6 +16,11 @@ export const RoleSchema = z.object({
   imgUrl: z.string(),
 })
 
+export const LogSchema = z.object({
+  playerName: z.string(),
+  interaction: z.string(),
+})
+
 export const CharacterSchema = z.object({
   name: z.string(),
   imgUrl: z.string(),
@@ -24,6 +29,7 @@ export const CharacterSchema = z.object({
 })
 
 export const CardSchema = z.object({
+  id: z.number(),
   title: z.string(),
   imgUrl: z.string(),
   isInstant: z.boolean(),
@@ -45,11 +51,6 @@ export const PlayerSchema = z.object({
   isActive: z.boolean(),
 })
 
-export const LogSchema = z.object({
-  playerName: z.string(),
-  interaction: z.string(),
-})
-
 export const GameSchema = z.object({
   id: z.number(),
   admin: z.string(),
@@ -62,3 +63,4 @@ export const GameSchema = z.object({
   usedCards: CardSchema.array(),
   logs: LogSchema.array(),
 })
+

@@ -1,12 +1,13 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
-import { authorize, getGame, deleteUserFromGame, startGame } from 'src/api';
-import { GameSchema, UserSchema } from 'src/model';
+import { authorize, getGame, deleteUserFromGame, startGame, updateLife, moveCard } from 'src/api';
+import { GameSchema, PlayerSchema, UserSchema } from 'src/model';
 import { number, z } from 'zod';
 import { EventEmitter } from '@angular/core';
 import { formatId } from 'src/util/formatId';
 
 type Game = z.infer<typeof GameSchema>
 type User = z.infer<typeof UserSchema>
+type Player = z.infer<typeof PlayerSchema>
 
 @Component({
   selector: 'app-game',
@@ -20,6 +21,7 @@ export class GameComponent implements OnInit {
   @Output() back = new EventEmitter();
 
   game: Game | null = null
+  updatingLife = false
 
   constructor() { }
   
@@ -47,8 +49,85 @@ export class GameComponent implements OnInit {
     startGame(this.gameId)
   }
 
+  async handleUpdateLife(value: number) {
+    this.updatingLife = true
+    const result = await updateLife(this.gameId ,this.loggedInUserName ,value)
+    this.updatingLife = false
+    if (!result.success) return
+  }
+
+  async handlePlayCard(cardId: number) {
+    const result = await moveCard(this.gameId, {
+      cardId,
+      fromPlayer: this.loggedInUserName,
+      fromPlace: "hand",
+      targetPlayerName: this.loggedInUserName,
+      targetPlace: "played",
+      targetIndex: 0
+    })
+  }
+
+  async handleInventorycard(cardId: number) {
+    const result = await moveCard(this.gameId, {
+      cardId,
+      fromPlayer: this.loggedInUserName,
+      fromPlace: "hand",
+      targetPlayerName: this.loggedInUserName,
+      targetPlace: "inventory",
+      targetIndex: 0
+    })
+  }
+
+  async throwFromInventory(cardId: number) {
+    const result = await moveCard(this.gameId, {
+      cardId,
+      fromPlayer: this.loggedInUserName,
+      fromPlace: "inventory",
+      targetPlayerName: null,
+      targetPlace: "used",
+      targetIndex: 0
+    })
+  }
+
+  async throwFromHand(cardId: number) {
+    const result = await moveCard(this.gameId, {
+      cardId,
+      fromPlayer: this.loggedInUserName,
+      fromPlace: "hand",
+      targetPlayerName: null,
+      targetPlace: "used",
+      targetIndex: 0
+    })
+  }
+
+  async throwFromPlayed(cardId: number) {
+    const result = await moveCard(this.gameId, {
+      cardId,
+      fromPlayer: this.loggedInUserName,
+      fromPlace: "played",
+      targetPlayerName: null,
+      targetPlace: "used",
+      targetIndex: 0
+    })
+  }
+
+  async drawFromUnused(cardId: number) {
+    const result = await moveCard(this.gameId, {
+      cardId,
+      fromPlayer: null,
+      fromPlace: "unused",
+      targetPlayerName: this.loggedInUserName,
+      targetPlace: "hand",
+      targetIndex: 0
+    })
+  }
+
   identifyUser(index: number, item: Omit<User, 'password'>){
     return item.id;
+  }
+  
+  identifyPlayer(index: number, player: Player){
+    return player.name;
   }
 
   emitBack() {

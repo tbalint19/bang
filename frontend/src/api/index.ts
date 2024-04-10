@@ -52,3 +52,24 @@ export const init = () => safeFetch({
   method: "GET",
   path: "/api/init",
 }, z.object({ name: z.string(), gameIds: z.number().array() }))
+
+export const updateLife = (gameId: number, playerName: string, value: number) => safeFetch({
+  method: "POST",
+  path: `/api/game/life/${gameId}/${playerName}`,
+  data: { value }
+}, z.object({ success: z.boolean() }))
+
+type MoveData = {
+  cardId: number,
+  fromPlayer: string | null,
+  fromPlace: "hand" | "inventory" | "played" | "unused" | "community" | "used"
+  targetPlayerName: string | null,
+  targetPlace: "hand" | "inventory" | "played" | "unused" | "community" | "used"
+  targetIndex: number
+}
+
+export const moveCard = (gameId: number, moveData: MoveData) => safeFetch({
+  method: "POST",
+  path: `/api/game/move/${gameId}`,
+  data: moveData
+}, z.object({ success: z.boolean() }))

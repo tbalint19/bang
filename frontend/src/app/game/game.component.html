@@ -28,16 +28,52 @@
   </div>
 </div>
 
-<div *ngIf="game && game.hasStarted" class="flex gap-4 flex-wrap">
-  <div *ngFor="let player of game.players" class="card card-body bg-neutral text-neutral-content">
-    <p>{{ player.character.name }}</p>
-    <p *ngIf="'Sheriff' === player.role.name || player.name === loggedInUserName">{{ player.role.name }}</p>
-    <p *ngIf="'Sheriff' !== player.role.name && player.name !== loggedInUserName">*****</p>
-    <p>{{ player.life }}</p>
-    <div class="divider">Cards</div>
-    <p *ngFor="let card of player.cardsInHand">
-      <span *ngIf="player.name === loggedInUserName">{{ card.title }}</span>
-      <span *ngIf="player.name !== loggedInUserName">*****</span>
+<div *ngIf="game && game.hasStarted" class="flex flex-wrap gap-4">
+  <div class="flex gap-4 flex-wrap">
+    <div *ngFor="let player of game.players; trackBy: identifyPlayer" class="card card-body bg-neutral text-neutral-content">
+      <p>{{ player.character.name }}</p>
+      <p *ngIf="'Sheriff' === player.role.name || player.name === loggedInUserName">{{ player.role.name }}</p>
+      <p *ngIf="'Sheriff' !== player.role.name && player.name !== loggedInUserName">*****</p>
+      <p class="flex justify-between items-center">
+        <button *ngIf="player.name === loggedInUserName" (click)="handleUpdateLife(-1)" [disabled]="updatingLife" class="btn btn-circle">-</button>
+        <span class="text-2xl font-extrabold">
+          {{ player.life }}
+        </span>
+        <button *ngIf="player.name === loggedInUserName" (click)="handleUpdateLife(1)" [disabled]="updatingLife" class="btn btn-circle">+</button>
+      </p>
+      <div class="divider">Kártyák</div>
+      <div *ngFor="let card of player.cardsInHand">
+        <div *ngIf="player.name === loggedInUserName">
+          {{ card.title }}
+          <button class="btn btn-success" (click)="handlePlayCard(card.id)">Kijátszom</button>
+          <button class="btn btn-success" (click)="handleInventorycard(card.id)">Lerakom</button>
+          <button class="btn btn-success" (click)="throwFromHand(card.id)">Eldobom</button>
+        </div>
+        <p *ngIf="player.name !== loggedInUserName">*****</p>
+      </div>
+      <div class="divider">Eszközeim</div>
+      <div *ngFor="let card of player.inventoryCards">
+        <p>
+          {{ card.title }}
+          <button class="btn btn-success" (click)="throwFromInventory(card.id)">Eldobom</button>
+        </p>
+      </div>
+      <div class="divider">Kijátszott kártyák</div>
+      <div *ngFor="let card of player.playedCards">
+        <p>{{ card.title }}</p>
+        <button class="btn btn-success" (click)="throwFromPlayed(card.id)">Eldobom</button>
+      </div>
+    </div>
+  </div>
+  <div>
+    <h1 class="divider">Pakli</h1>
+    <button class="btn btn-info w-full" (click)="drawFromUnused(game.unusedCards[0].id)">Húzás ({{ game.unusedCards.length }})</button>
+    <h1 class="divider">Dobott lapok</h1>
+    <button class="btn btn-error w-full">Húzás ({{ game.usedCards.length }})</button>
+    <h1 class="divider">Logok:</h1>
+    <p *ngFor="let log of game.logs">
+      <span>({{ log.playerName }})</span>
+      <span>{{ log.interaction }}</span>
     </p>
   </div>
 </div>

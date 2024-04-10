@@ -4,9 +4,11 @@ import { z } from "zod"
 import { hash, compare } from "./util/hash"
 import jwt from "jsonwebtoken"
 
-import { GameSchema, UserSchema } from "./model"
+import { GameSchema, UserSchema, CardSchema } from "./model"
 import { save, load } from "./util/db"
 import { createDeck, getCharacters, getRoles } from "./util/bang"
+
+type Card = z.infer<typeof CardSchema>
 
 const server = express()
 const serverPassword = "ksjfbnsdjkfbdsjkfbkjb"
@@ -362,11 +364,215 @@ server.get("/api/init", async (req, res) => {
   })
 })
 
-// +1 / -1 -> 200/400/500
-server.post("/api/game/:gameid/:playerid/life") // +log
+const LifeRequest = z.object({
+  value: z.number()
+})
+
+server.post("/api/game/life/:gameId/:playerName", async (req, res) => {
+  const user = res.locals.user as Omit<User, 'password'>
+  if (!user)  
+    return res.sendStatus(401)
+
+  const result = LifeRequest.safeParse(req.body)
+  if (!result.success)
+    return res.sendStatus(400)
+  const { value } = result.data
+
+  const games = await load("games", GameSchema.array())
+  if (!games)    
+    return res.sendStatus(500)
+
+  const id = req.params.gameId
+  const gameToUpdate = games.find(game => game.id === +id)
+  if (!gameToUpdate)
+    return res.sendStatus(404)
+  
+  const playerName = req.params.playerName
+  if (playerName !== user.name)
+    return res.sendStatus(403)
+  const player = gameToUpdate.players
+    .find(player => player.name === playerName)
+
+  if (!player)
+    return res.sendStatus(404)
+
+  player.life += value
+  gameToUpdate.logs = [
+    {
+      playerName,
+      interaction: `Élet módosítás (${value})`
+    },
+    ...gameToUpdate.logs
+  ]
+  const saveResult = await save("games", games
+    .map(game => game.id === +id ? gameToUpdate : game), GameSchema.array())
+
+  if (!saveResult.success)  
+    return res.sendStatus(500)
+
+  res.json(saveResult)
+})
+
+const MoveRequestSchema = z.object({
+  cardId: z.number(),
+  fromPlayer: z.string().nullable(),
+  fromPlace: z.union([
+    z.literal("hand"),
+    z.literal("inventory"),
+    z.literal("played"),
+    z.literal("unused"),
+    z.literal("community"),
+    z.literal("used"),
+  ]),
+  targetPlayerName: z.string().nullable(),
+  targetPlace: z.union([
+    z.literal("hand"),
+    z.literal("inventory"),
+    z.literal("played"),
+    z.literal("unused"),
+    z.literal("community"),
+    z.literal("used"),
+  ]),
+  targetIndex: z.number(),
+})
+
+type MoveRequest = z.infer<typeof MoveRequestSchema>
 
 // from array, index, to array -> 200/400/500
-server.post("/api/game/:gameid/:playerid/move") // +log
+server.post("/api/game/move/:gameId", async (req, res) => {
+  const user = res.locals.user as Omit<User, 'password'>
+  if (!user)  
+    return res.sendStatus(401)
+
+  const result = MoveRequestSchema.safeParse(req.body)
+  if (!result.success)
+    return res.sendStatus(400)
+  const moveRequest = result.data
+
+  const games = await load("games", GameSchema.array())
+  if (!games)    
+    return res.sendStatus(500)
+
+  const id = req.params.gameId
+  const gameToUpdate = games.find(game => game.id === +id)
+  if (!gameToUpdate)
+    return res.sendStatus(404)
+
+  const cardId = moveRequest.cardId
+  let cardToMove: Card | null = null
+  if (moveRequest.fromPlayer) {
+    const fromPlayer = gameToUpdate.players.find(player => player.name === moveRequest.fromPlayer)
+    if (!fromPlayer)
+      return res.sendStatus(404)
+    if (moveRequest.fromPlace === "hand") {
+      const card = fromPlayer.cardsInHand.find(card => card.id === cardId)
+      if (!card)
+        return res.sendStatus(404)
+      fromPlayer.cardsInHand = fromPlayer.cardsInHand.filter(card => card.id !== cardId)
+      cardToMove = card
+    }
+    if (moveRequest.fromPlace === "inventory") {
+      const card = fromPlayer.inventoryCards.find(card => card.id === cardId)
+      if (!card)
+        return res.sendStatus(404)
+      fromPlayer.inventoryCards = fromPlayer.inventoryCards.filter(card => card.id !== cardId)
+      cardToMove = card
+    }
+    if (moveRequest.fromPlace === "played") {
+      const card = fromPlayer.playedCards.find(card => card.id === cardId)
+      if (!card)
+        return res.sendStatus(404)
+      fromPlayer.playedCards = fromPlayer.playedCards.filter(card => card.id !== cardId)
+      cardToMove = card
+    }
+  } else {
+    if (moveRequest.fromPlace === "unused") {
+      const card = gameToUpdate.unusedCards.find(card => card.id === cardId)
+      if (!card)
+        return res.sendStatus(404)
+      gameToUpdate.unusedCards = gameToUpdate.unusedCards.filter(card => card.id !== cardId)
+      cardToMove = card
+    }
+    if (moveRequest.fromPlace === "used") {
+      const card = gameToUpdate.usedCards.find(card => card.id === cardId)
+      if (!card)
+        return res.sendStatus(404)
+      gameToUpdate.usedCards = gameToUpdate.usedCards.filter(card => card.id !== cardId)
+      cardToMove = card
+    }
+    if (moveRequest.fromPlace === "community") {
+      const card = gameToUpdate.communityCards.find(card => card.id === cardId)
+      if (!card)
+        return res.sendStatus(404)
+      gameToUpdate.communityCards = gameToUpdate.communityCards.filter(card => card.id !== cardId)
+      cardToMove = card
+    }
+  }
+
+  if (!cardToMove)
+    return res.sendStatus(404)
+
+  const index = moveRequest.targetIndex
+  if (moveRequest.targetPlayerName) {
+    const targetPlayer = gameToUpdate.players.find(player => player.name === moveRequest.targetPlayerName)
+    if (!targetPlayer)
+      return res.sendStatus(404)
+    if (moveRequest.targetPlace === "hand") {
+      if (index > targetPlayer.cardsInHand.length)
+        return res.sendStatus(400)
+      targetPlayer.cardsInHand.splice(index, 0, cardToMove)
+    }
+    if (moveRequest.targetPlace === "played") {
+      if (index > targetPlayer.playedCards.length)
+        return res.sendStatus(400)
+      targetPlayer.playedCards.splice(index, 0, cardToMove)
+    }
+    if (moveRequest.targetPlace === "inventory") {
+      if (index > targetPlayer.playedCards.length)
+        return res.sendStatus(400)
+      targetPlayer.inventoryCards.splice(index, 0, cardToMove)
+    }
+  } else {
+    if (moveRequest.targetPlace === "community") {
+      if (index > gameToUpdate.communityCards.length)
+        return res.sendStatus(400)
+      gameToUpdate.communityCards.splice(index, 0, cardToMove)
+    }
+    if (moveRequest.targetPlace === "used") {
+      if (index > gameToUpdate.communityCards.length)
+        return res.sendStatus(400)
+      gameToUpdate.usedCards.splice(index, 0, cardToMove)
+    }
+    if (moveRequest.targetPlace === "unused") {
+      if (index > gameToUpdate.communityCards.length)
+        return res.sendStatus(400)
+      gameToUpdate.unusedCards.splice(index, 0, cardToMove)
+    }
+  }
+
+  const formatMove = (move: MoveRequest): string => {
+    return `
+      Kártya átmozgatva (${moveRequest.cardId})
+    `.trim()
+  }
+
+  gameToUpdate.logs = [
+    {
+      playerName: user.name,
+      interaction: formatMove(moveRequest)
+    },
+    ...gameToUpdate.logs
+  ]
+
+  const saveResult = await save("games", games
+    .map(game => game.id === +id ? gameToUpdate : game), GameSchema.array())
+
+  if (!saveResult.success)  
+    return res.sendStatus(500)
+
+  res.json(saveResult)
+
+})
 
 server.post("/api/game/:gameid/reveal")
 
