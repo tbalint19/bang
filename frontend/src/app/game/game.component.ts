@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { authorize, getGame, deleteUserFromGame, startGame, updateLife, moveCard } from 'src/api';
-import { GameSchema, PlayerSchema, UserSchema } from 'src/model';
+import { GameSchema, PlayerSchema, UserSchema, CardSchema } from 'src/model';
 import { number, z } from 'zod';
 import { EventEmitter } from '@angular/core';
 import { formatId } from 'src/util/formatId';
@@ -8,6 +8,7 @@ import { formatId } from 'src/util/formatId';
 type Game = z.infer<typeof GameSchema>
 type User = z.infer<typeof UserSchema>
 type Player = z.infer<typeof PlayerSchema>
+type Card = z.infer<typeof CardSchema>
 
 @Component({
   selector: 'app-game',
@@ -22,6 +23,7 @@ export class GameComponent implements OnInit {
 
   game: Game | null = null
   updatingLife = false
+  transferId: number | null = null
 
   constructor() { }
   
@@ -77,6 +79,31 @@ export class GameComponent implements OnInit {
       targetIndex: 0
     })
   }
+  
+  async handleTransferCardToInventory(cardId: number, targetPlayerName: string) {
+    const result = await moveCard(this.gameId, {
+      cardId,
+      fromPlayer: this.loggedInUserName,
+      fromPlace: "hand",
+      targetPlayerName,
+      targetPlace: "inventory",
+      targetIndex: 0
+    })
+  }
+
+  handleTransferStart(cardId: number) {
+    this.transferId = cardId
+  }
+
+  allowDrop(event: DragEvent) {
+    event.preventDefault();
+  }
+  
+  async handleTransferEnd(event: DragEvent, playerName: string) {
+    event.preventDefault()
+    if (!this.transferId) return
+    const response = await this.handleTransferCardToInventory(this.transferId, playerName)
+  }
 
   async throwFromInventory(cardId: number) {
     const result = await moveCard(this.gameId, {
@@ -128,6 +155,10 @@ export class GameComponent implements OnInit {
   
   identifyPlayer(index: number, player: Player){
     return player.name;
+  }
+  
+  identifyCard(index: number, card: Card){
+    return card.id;
   }
 
   emitBack() {

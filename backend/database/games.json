@@ -27,48 +27,50 @@
         "life": 5,
         "cardsInHand": [
           {
-            "id": 0.33017374932031807,
-            "title": "Börtön",
-            "imgUrl": "prisonUrl",
-            "isInstant": false,
-            "signature": {
-              "number": "4",
-              "sign": "pikk"
-            }
-          },
-          {
-            "id": 0.43334629484600407,
-            "title": "Cat Balou",
-            "imgUrl": "catBalouUrl",
+            "id": 0.9602156456350723,
+            "title": "Nem talált!",
+            "imgUrl": "missedUrl",
             "isInstant": true,
             "signature": {
               "number": "4",
-              "sign": "kőr"
-            }
-          },
-          {
-            "id": 0.864098095008881,
-            "title": "Börtön",
-            "imgUrl": "prisonUrl",
-            "isInstant": false,
-            "signature": {
-              "number": "7",
-              "sign": "pikk"
-            }
-          },
-          {
-            "id": 0.6581922424612026,
-            "title": "Pánik!",
-            "imgUrl": "panicUrl",
-            "isInstant": true,
-            "signature": {
-              "number": "Q",
               "sign": "treff"
+            }
+          },
+          {
+            "id": 0.4765398072986653,
+            "title": "Bang",
+            "imgUrl": "pistolUrl",
+            "isInstant": true,
+            "signature": {
+              "number": "A",
+              "sign": "kőr"
             }
           }
         ],
-        "inventoryCards": [],
-        "playedCards": [],
+        "inventoryCards": [
+          {
+            "id": 0.8902458260700701,
+            "title": "Schofield (2)",
+            "imgUrl": "schofieldUrl",
+            "isInstant": false,
+            "signature": {
+              "number": "5",
+              "sign": "pikk"
+            }
+          }
+        ],
+        "playedCards": [
+          {
+            "id": 0.917862471006683,
+            "title": "Bang",
+            "imgUrl": "pistolUrl",
+            "isInstant": true,
+            "signature": {
+              "number": "T",
+              "sign": "kőr"
+            }
+          }
+        ],
         "isActive": false
       },
       {
@@ -127,7 +129,18 @@
             }
           }
         ],
-        "inventoryCards": [],
+        "inventoryCards": [
+          {
+            "id": 0.2511453534449517,
+            "title": "Börtön",
+            "imgUrl": "prisonUrl",
+            "isInstant": false,
+            "signature": {
+              "number": "8",
+              "sign": "kőr"
+            }
+          }
+        ],
         "playedCards": [],
         "isActive": false
       },
@@ -253,106 +266,6 @@
       }
     ],
     "unusedCards": [
-      {
-        "id": 0.9988626574807196,
-        "title": "Kocsma",
-        "imgUrl": "pubUrl",
-        "isInstant": true,
-        "signature": {
-          "number": "7",
-          "sign": "káró"
-        }
-      },
-      {
-        "id": 0.8902458260700701,
-        "title": "Schofield (2)",
-        "imgUrl": "schofieldUrl",
-        "isInstant": false,
-        "signature": {
-          "number": "5",
-          "sign": "pikk"
-        }
-      },
-      {
-        "id": 0.4765398072986653,
-        "title": "Bang",
-        "imgUrl": "pistolUrl",
-        "isInstant": true,
-        "signature": {
-          "number": "A",
-          "sign": "kőr"
-        }
-      },
-      {
-        "id": 0.727016400774138,
-        "title": "Indiánok!",
-        "imgUrl": "indiansUrl",
-        "isInstant": true,
-        "signature": {
-          "number": "3",
-          "sign": "treff"
-        }
-      },
-      {
-        "id": 0.917862471006683,
-        "title": "Bang",
-        "imgUrl": "pistolUrl",
-        "isInstant": true,
-        "signature": {
-          "number": "T",
-          "sign": "kőr"
-        }
-      },
-      {
-        "id": 0.7980986894276572,
-        "title": "Nem talált!",
-        "imgUrl": "missedUrl",
-        "isInstant": true,
-        "signature": {
-          "number": "5",
-          "sign": "káró"
-        }
-      },
-      {
-        "id": 0.4061140138352697,
-        "title": "Schofield (2)",
-        "imgUrl": "schofieldUrl",
-        "isInstant": false,
-        "signature": {
-          "number": "8",
-          "sign": "pikk"
-        }
-      },
-      {
-        "id": 0.5317478610694315,
-        "title": "Bang",
-        "imgUrl": "pistolUrl",
-        "isInstant": true,
-        "signature": {
-          "number": "J",
-          "sign": "pikk"
-        }
-      },
-      {
-        "id": 0.2511453534449517,
-        "title": "Börtön",
-        "imgUrl": "prisonUrl",
-        "isInstant": false,
-        "signature": {
-          "number": "8",
-          "sign": "kőr"
-        }
-      },
-      {
-        "id": 0.9602156456350723,
-        "title": "Nem talált!",
-        "imgUrl": "missedUrl",
-        "isInstant": true,
-        "signature": {
-          "number": "4",
-          "sign": "treff"
-        }
-      },
       {
         "id": 0.8170632969736826,
         "title": "Bang",
@@ -877,6 +790,96 @@
     "communityCards": [],
     "usedCards": [
       {
+        "id": 0.727016400774138,
+        "title": "Indiánok!",
+        "imgUrl": "indiansUrl",
+        "isInstant": true,
+        "signature": {
+          "number": "3",
+          "sign": "treff"
+        }
+      },
+      {
+        "id": 0.7980986894276572,
+        "title": "Nem talált!",
+        "imgUrl": "missedUrl",
+        "isInstant": true,
+        "signature": {
+          "number": "5",
+          "sign": "káró"
+        }
+      },
+      {
+        "id": 0.4061140138352697,
+        "title": "Schofield (2)",
+        "imgUrl": "schofieldUrl",
+        "isInstant": false,
+        "signature": {
+          "number": "8",
+          "sign": "pikk"
+        }
+      },
+      {
+        "id": 0.5317478610694315,
+        "title": "Bang",
+        "imgUrl": "pistolUrl",
+        "isInstant": true,
+        "signature": {
+          "number": "J",
+          "sign": "pikk"
+        }
+      },
+      {
+        "id": 0.9988626574807196,
+        "title": "Kocsma",
+        "imgUrl": "pubUrl",
+        "isInstant": true,
+        "signature": {
+          "number": "7",
+          "sign": "káró"
+        }
+      },
+      {
+        "id": 0.864098095008881,
+        "title": "Börtön",
+        "imgUrl": "prisonUrl",
+        "isInstant": false,
+        "signature": {
+          "number": "7",
+          "sign": "pikk"
+        }
+      },
+      {
+        "id": 0.43334629484600407,
+        "title": "Cat Balou",
+        "imgUrl": "catBalouUrl",
+        "isInstant": true,
+        "signature": {
+          "number": "4",
+          "sign": "kőr"
+        }
+      },
+      {
+        "id": 0.6581922424612026,
+        "title": "Pánik!",
+        "imgUrl": "panicUrl",
+        "isInstant": true,
+        "signature": {
+          "number": "Q",
+          "sign": "treff"
+        }
+      },
+      {
+        "id": 0.33017374932031807,
+        "title": "Börtön",
+        "imgUrl": "prisonUrl",
+        "isInstant": false,
+        "signature": {
+          "number": "4",
+          "sign": "pikk"
+        }
+      },
+      {
         "id": 0.8922234256343433,
         "title": "Indiánok!",
         "imgUrl": "indiansUrl",
@@ -898,6 +901,114 @@
       }
     ],
     "logs": [
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.2511453534449517)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.9602156456350723)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.2511453534449517)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.727016400774138)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.7980986894276572)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.4061140138352697)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.5317478610694315)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.5317478610694315)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.917862471006683)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.4061140138352697)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.7980986894276572)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.917862471006683)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.9988626574807196)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.727016400774138)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.4765398072986653)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.9988626574807196)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.8902458260700701)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.8902458260700701)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.9988626574807196)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.864098095008881)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.43334629484600407)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.6581922424612026)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.33017374932031807)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.6581922424612026)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.33017374932031807)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.43334629484600407)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.864098095008881)"
+      },
       {
         "playerName": "angularuser",
         "interaction": "Kártya átmozgatva (0.33017374932031807)"

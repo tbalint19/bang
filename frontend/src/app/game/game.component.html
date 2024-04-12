@@ -42,24 +42,26 @@
         <button *ngIf="player.name === loggedInUserName" (click)="handleUpdateLife(1)" [disabled]="updatingLife" class="btn btn-circle">+</button>
       </p>
       <div class="divider">Kártyák</div>
-      <div *ngFor="let card of player.cardsInHand">
-        <div *ngIf="player.name === loggedInUserName">
+      <div *ngFor="let card of player.cardsInHand; trackBy:identifyCard">
+        <div draggable="true" (dragstart)="handleTransferStart(card.id)" *ngIf="player.name === loggedInUserName">
           {{ card.title }}
-          <button class="btn btn-success" (click)="handlePlayCard(card.id)">Kijátszom</button>
-          <button class="btn btn-success" (click)="handleInventorycard(card.id)">Lerakom</button>
+          <button *ngIf="card.isInstant" class="btn btn-success" (click)="handlePlayCard(card.id)">Kijátszom</button>
+          <button *ngIf="!card.isInstant" class="btn btn-success" (click)="handleInventorycard(card.id)">Lerakom</button>
           <button class="btn btn-success" (click)="throwFromHand(card.id)">Eldobom</button>
         </div>
         <p *ngIf="player.name !== loggedInUserName">*****</p>
       </div>
-      <div class="divider">Eszközeim</div>
-      <div *ngFor="let card of player.inventoryCards">
-        <p>
-          {{ card.title }}
-          <button class="btn btn-success" (click)="throwFromInventory(card.id)">Eldobom</button>
-        </p>
+      <div (dragover)="allowDrop($event)" (drop)="handleTransferEnd($event, player.name)">
+        <div class="divider">Eszközeim</div>
+        <div *ngFor="let card of player.inventoryCards; trackBy:identifyCard">
+          <p>
+            {{ card.title }}
+            <button class="btn btn-success" (click)="throwFromInventory(card.id)">Eldobom</button>
+          </p>
+        </div>
       </div>
       <div class="divider">Kijátszott kártyák</div>
-      <div *ngFor="let card of player.playedCards">
+      <div *ngFor="let card of player.playedCards; trackBy:identifyCard">
         <p>{{ card.title }}</p>
         <button class="btn btn-success" (click)="throwFromPlayed(card.id)">Eldobom</button>
       </div>
