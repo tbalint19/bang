@@ -73,3 +73,15 @@ export const moveCard = (gameId: number, moveData: MoveData) => safeFetch({
   path: `/api/game/move/${gameId}`,
   data: moveData
 }, z.object({ success: z.boolean() }))
+
+export const revealSelf = (gameId: number) => safeFetch({
+  method: "POST",
+  path: `/api/game/reveal/${gameId}`,
+  data: { }
+}, z.object({ success: z.boolean() }))
+
+export const deleteGame = (gameId: number) => safeFetch({
+  method: "DELETE",
+  path: `/api/game/${gameId}`,
+  data: { }
+}, z.object({ success: z.boolean() }))

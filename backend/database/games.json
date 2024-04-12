@@ -3,7 +3,16 @@
     "id": 0.083388121188958,
     "admin": "angularuser",
     "hasStarted": true,
-    "requests": [],
+    "requests": [
+      {
+        "id": 0.7826685971604881,
+        "name": "reactuser"
+      },
+      {
+        "id": 0.1234053129210626,
+        "name": "svelteuser"
+      }
+    ],
     "joinedUsers": [
       {
         "id": 0.11073172581177171,
@@ -49,6 +58,16 @@
         ],
         "inventoryCards": [
           {
+            "id": 0.2511453534449517,
+            "title": "Börtön",
+            "imgUrl": "prisonUrl",
+            "isInstant": false,
+            "signature": {
+              "number": "8",
+              "sign": "kőr"
+            }
+          },
+          {
             "id": 0.8902458260700701,
             "title": "Schofield (2)",
             "imgUrl": "schofieldUrl",
@@ -59,18 +78,7 @@
             }
           }
         ],
-        "playedCards": [
-          {
-            "id": 0.917862471006683,
-            "title": "Bang",
-            "imgUrl": "pistolUrl",
-            "isInstant": true,
-            "signature": {
-              "number": "T",
-              "sign": "kőr"
-            }
-          }
-        ],
+        "playedCards": [],
         "isActive": false
       },
       {
@@ -79,7 +87,7 @@
           "name": "Bandit",
           "imgUrl": ""
         },
-        "isRevealed": false,
+        "isRevealed": true,
         "character": {
           "name": "Jourdannis",
           "imgUrl": "",
@@ -129,18 +137,7 @@
             }
           }
         ],
-        "inventoryCards": [
-          {
-            "id": 0.2511453534449517,
-            "title": "Börtön",
-            "imgUrl": "prisonUrl",
-            "isInstant": false,
-            "signature": {
-              "number": "8",
-              "sign": "kőr"
-            }
-          }
-        ],
+        "inventoryCards": [],
         "playedCards": [],
         "isActive": false
       },
@@ -150,14 +147,14 @@
           "name": "Renegade",
           "imgUrl": ""
         },
-        "isRevealed": false,
+        "isRevealed": true,
         "character": {
           "name": "Pedro Ramirez",
           "imgUrl": "",
           "description": "",
           "life": 4
         },
-        "life": 4,
+        "life": 0,
         "cardsInHand": [
           {
             "id": 0.9118188608570477,
@@ -266,46 +263,6 @@
       }
     ],
     "unusedCards": [
-      {
-        "id": 0.8170632969736826,
-        "title": "Bang",
-        "imgUrl": "pistolUrl",
-        "isInstant": true,
-        "signature": {
-          "number": "3",
-          "sign": "kőr"
-        }
-      },
-      {
-        "id": 0.7493432798336155,
-        "title": "Sör",
-        "imgUrl": "beerUrl",
-        "isInstant": true,
-        "signature": {
-          "number": "8",
-          "sign": "káró"
-        }
-      },
-      {
-        "id": 0.7976598382639277,
-        "title": "Gyorstüzelő (1)",
-        "imgUrl": "vulcanicUrl",
-        "isInstant": false,
-        "signature": {
-          "number": "T",
-          "sign": "pikk"
-        }
-      },
-      {
-        "id": 0.9235673335194226,
-        "title": "Bang",
-        "imgUrl": "pistolUrl",
-        "isInstant": true,
-        "signature": {
-          "number": "J",
-          "sign": "kőr"
-        }
-      },
       {
         "id": 0.6272328661643816,
         "title": "Bang",
@@ -787,8 +744,59 @@
         }
       }
     ],
-    "communityCards": [],
+    "communityCards": [
+      {
+        "id": 0.9235673335194226,
+        "title": "Bang",
+        "imgUrl": "pistolUrl",
+        "isInstant": true,
+        "signature": {
+          "number": "J",
+          "sign": "kőr"
+        }
+      },
+      {
+        "id": 0.7976598382639277,
+        "title": "Gyorstüzelő (1)",
+        "imgUrl": "vulcanicUrl",
+        "isInstant": false,
+        "signature": {
+          "number": "T",
+          "sign": "pikk"
+        }
+      },
+      {
+        "id": 0.7493432798336155,
+        "title": "Sör",
+        "imgUrl": "beerUrl",
+        "isInstant": true,
+        "signature": {
+          "number": "8",
+          "sign": "káró"
+        }
+      },
+      {
+        "id": 0.8170632969736826,
+        "title": "Bang",
+        "imgUrl": "pistolUrl",
+        "isInstant": true,
+        "signature": {
+          "number": "3",
+          "sign": "kőr"
+        }
+      }
+    ],
     "usedCards": [
+      {
+        "id": 0.917862471006683,
+        "title": "Bang",
+        "imgUrl": "pistolUrl",
+        "isInstant": true,
+        "signature": {
+          "number": "T",
+          "sign": "kőr"
+        }
+      },
       {
         "id": 0.727016400774138,
         "title": "Indiánok!",
@@ -901,6 +909,46 @@
       }
     ],
     "logs": [
+      {
+        "playerName": "svelteuser",
+        "interaction": "Élet módosítás (-1)"
+      },
+      {
+        "playerName": "svelteuser",
+        "interaction": "Élet módosítás (-1)"
+      },
+      {
+        "playerName": "svelteuser",
+        "interaction": "Élet módosítás (-1)"
+      },
+      {
+        "playerName": "svelteuser",
+        "interaction": "Élet módosítás (-1)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.9235673335194226)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.7976598382639277)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.7493432798336155)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.8170632969736826)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.917862471006683)"
+      },
+      {
+        "playerName": "angularuser",
+        "interaction": "Kártya átmozgatva (0.2511453534449517)"
+      },
       {
         "playerName": "angularuser",
         "interaction": "Kártya átmozgatva (0.2511453534449517)"

@@ -1,5 +1,7 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
-import { authorize, getGame, deleteUserFromGame, startGame, updateLife, moveCard } from 'src/api';
+import { Component, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  authorize, getGame, deleteUserFromGame, startGame, updateLife, moveCard, deleteGame, revealSelf
+} from 'src/api';
 import { GameSchema, PlayerSchema, UserSchema, CardSchema } from 'src/model';
 import { number, z } from 'zod';
 import { EventEmitter } from '@angular/core';
@@ -15,7 +17,7 @@ type Card = z.infer<typeof CardSchema>
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css']
 })
-export class GameComponent implements OnInit {
+export class GameComponent implements OnInit, OnDestroy  {
 
   @Input() gameId!: number
   @Input() loggedInUserName!: string
@@ -24,15 +26,21 @@ export class GameComponent implements OnInit {
   game: Game | null = null
   updatingLife = false
   transferId: number | null = null
+  queryInterval: ReturnType<typeof setTimeout> | null = null
 
   constructor() { }
   
   ngOnInit(): void {
-    setInterval(async () => {
+    this.queryInterval = setInterval(async () => {
       const response = await getGame(this.gameId)
       if (!response.success) return
       this.game = response.data
     }, 500)
+  }
+
+  ngOnDestroy(): void {
+    if (this.queryInterval)
+      clearInterval(this.queryInterval)
   }
 
   formatId(id: number) {
@@ -80,29 +88,15 @@ export class GameComponent implements OnInit {
     })
   }
   
-  async handleTransferCardToInventory(cardId: number, targetPlayerName: string) {
+  async handleTransferCardToInventory(cardId: number, fromPlayer: string) {
     const result = await moveCard(this.gameId, {
       cardId,
-      fromPlayer: this.loggedInUserName,
-      fromPlace: "hand",
-      targetPlayerName,
+      fromPlayer,
+      fromPlace: "inventory",
+      targetPlayerName: this.loggedInUserName,
       targetPlace: "inventory",
       targetIndex: 0
     })
-  }
-
-  handleTransferStart(cardId: number) {
-    this.transferId = cardId
-  }
-
-  allowDrop(event: DragEvent) {
-    event.preventDefault();
-  }
-  
-  async handleTransferEnd(event: DragEvent, playerName: string) {
-    event.preventDefault()
-    if (!this.transferId) return
-    const response = await this.handleTransferCardToInventory(this.transferId, playerName)
   }
 
   async throwFromInventory(cardId: number) {
@@ -147,6 +141,28 @@ export class GameComponent implements OnInit {
       targetPlace: "hand",
       targetIndex: 0
     })
+  }
+  
+  async drawToCommunity(cardId: number) {
+    const result = await moveCard(this.gameId, {
+      cardId,
+      fromPlayer: null,
+      fromPlace: "unused",
+      targetPlayerName: null,
+      targetPlace: "community",
+      targetIndex: 0
+    })
+  }
+
+  async handleReveal() {
+    const result = await revealSelf(this.gameId)
+    if (!result.success) return
+  }
+
+  async handleDelete() {
+    const result = await deleteGame(this.gameId)
+    if (!result.success) return
+    this.emitBack()
   }
 
   identifyUser(index: number, item: Omit<User, 'password'>){

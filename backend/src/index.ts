@@ -574,8 +574,58 @@ server.post("/api/game/move/:gameId", async (req, res) => {
 
 })
 
-server.post("/api/game/:gameid/reveal")
+server.post("/api/game/reveal/:gameId", async (req, res) => {
+  const user = res.locals.user as Omit<User, 'password'>
+  if (!user)  
+    return res.sendStatus(401)
 
-server.delete("/api/game/:gameid")
+  const games = await load("games", GameSchema.array())
+  if (!games)    
+    return res.sendStatus(500)
+
+  const id = req.params.gameId
+  const gameToUpdate = games.find(game => game.id === +id)
+  if (!gameToUpdate)
+    return res.sendStatus(404)
+
+  const player = gameToUpdate.players.find(player => player.name === user.name)
+  if (!player)
+    return res.sendStatus(403)
+
+  player.isRevealed = true
+
+  const saveResult = await save("games", games
+    .map(game => game.id === +id ? gameToUpdate : game), GameSchema.array())
+
+  if (!saveResult.success)  
+    return res.sendStatus(500)
+
+  res.json(saveResult)
+})
+
+server.delete("/api/game/:gameId", async (req, res) => {
+  const user = res.locals.user as Omit<User, 'password'>
+  if (!user)  
+    return res.sendStatus(401)
+
+  const games = await load("games", GameSchema.array())
+  if (!games)    
+    return res.sendStatus(500)
+
+  const id = req.params.gameId
+  const gameToUpdate = games.find(game => game.id === +id)
+  if (!gameToUpdate)
+    return res.sendStatus(404)
+
+  if (gameToUpdate.admin !== user.name)
+    return res.sendStatus(403)
+
+  const saveResult = await save("games", games.filter(game => game.id !== +id), GameSchema.array())
+
+  if (!saveResult.success)  
+    return res.sendStatus(500)
+
+  res.json(saveResult)
+})
 
 server.listen(3000)

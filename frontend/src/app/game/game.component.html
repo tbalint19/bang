@@ -32,7 +32,8 @@
   <div class="flex gap-4 flex-wrap">
     <div *ngFor="let player of game.players; trackBy: identifyPlayer" class="card card-body bg-neutral text-neutral-content">
       <p>{{ player.character.name }}</p>
-      <p *ngIf="'Sheriff' === player.role.name || player.name === loggedInUserName">{{ player.role.name }}</p>
+      <p *ngIf="'Sheriff' === player.role.name || player.name === loggedInUserName || player.isRevealed">{{ player.role.name }}</p>
+      <button class="btn btn-error" *ngIf="'Sheriff' !== player.role.name && player.name === loggedInUserName" (click)="handleReveal()">Felfedés</button>
       <p *ngIf="'Sheriff' !== player.role.name && player.name !== loggedInUserName">*****</p>
       <p class="flex justify-between items-center">
         <button *ngIf="player.name === loggedInUserName" (click)="handleUpdateLife(-1)" [disabled]="updatingLife" class="btn btn-circle">-</button>
@@ -43,7 +44,7 @@
       </p>
       <div class="divider">Kártyák</div>
       <div *ngFor="let card of player.cardsInHand; trackBy:identifyCard">
-        <div draggable="true" (dragstart)="handleTransferStart(card.id)" *ngIf="player.name === loggedInUserName">
+        <div *ngIf="player.name === loggedInUserName">
           {{ card.title }}
           <button *ngIf="card.isInstant" class="btn btn-success" (click)="handlePlayCard(card.id)">Kijátszom</button>
           <button *ngIf="!card.isInstant" class="btn btn-success" (click)="handleInventorycard(card.id)">Lerakom</button>
@@ -51,14 +52,13 @@
         </div>
         <p *ngIf="player.name !== loggedInUserName">*****</p>
       </div>
-      <div (dragover)="allowDrop($event)" (drop)="handleTransferEnd($event, player.name)">
-        <div class="divider">Eszközeim</div>
-        <div *ngFor="let card of player.inventoryCards; trackBy:identifyCard">
-          <p>
-            {{ card.title }}
-            <button class="btn btn-success" (click)="throwFromInventory(card.id)">Eldobom</button>
-          </p>
-        </div>
+      <div class="divider">Eszközeim</div>
+      <div *ngFor="let card of player.inventoryCards; trackBy:identifyCard">
+        <p>
+          {{ card.title }}
+          <button *ngIf="loggedInUserName !== player.name" class="btn btn-error" (click)="handleTransferCardToInventory(card.id, player.name)">Átveszem</button>
+          <button *ngIf="loggedInUserName === player.name" class="btn btn-success" (click)="throwFromInventory(card.id)">Eldobom</button>
+        </p>
       </div>
       <div class="divider">Kijátszott kártyák</div>
       <div *ngFor="let card of player.playedCards; trackBy:identifyCard">
@@ -67,11 +67,22 @@
       </div>
     </div>
   </div>
+  <div class="card card-body bg-primary text-primary-content">
+    <div *ngFor="let card of game.communityCards; trackBy:identifyCard">
+      <p>{{ card.title }} ({{ card.signature.sign }}, {{ card.signature.number }})</p>
+      <button class="btn btn-success">Felveszem</button>
+      <button class="btn btn-error">Eldobom</button>
+    </div>
+  </div>
   <div>
-    <h1 class="divider">Pakli</h1>
-    <button class="btn btn-info w-full" (click)="drawFromUnused(game.unusedCards[0].id)">Húzás ({{ game.unusedCards.length }})</button>
+    <h1 class="divider">Pakli ({{ game.unusedCards.length }})</h1>
+    <button class="btn btn-info w-full" (click)="drawFromUnused(game.unusedCards[0].id)">Húzás</button>
+    <button class="btn btn-info w-full" (click)="drawToCommunity(game.unusedCards[0].id)">Fordítás</button>
     <h1 class="divider">Dobott lapok</h1>
     <button class="btn btn-error w-full">Húzás ({{ game.usedCards.length }})</button>
+    <div>Játék kezelése</div>
+    <button (click)="emitBack()" class="btn btn-error">Kilépés</button>
+    <button (click)="handleDelete()" *ngIf="loggedInUserName === game.admin" class="btn btn-error">Törlés</button>
     <h1 class="divider">Logok:</h1>
     <p *ngFor="let log of game.logs">
       <span>({{ log.playerName }})</span>
